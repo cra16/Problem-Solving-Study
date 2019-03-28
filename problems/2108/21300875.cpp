@@ -2,6 +2,7 @@
 #include <vector>
 #include <cmath>
 #include <utility>
+#include <algorithm>
 using namespace std;
 
 // 정렬기준
@@ -14,7 +15,6 @@ int main () {
 
   //라인 수 받기
   int line = 0;
-  cout << "입력할 정수의 개수를 알려주세요. : " ;
   cin >> line;
 
   vector<int> v;
@@ -32,9 +32,11 @@ int main () {
   int avg = 0;
   avg = round((float)sum/line);
   cout << avg << endl;
+
   //중간값 출력
   sort(v.begin(),v.end());
   cout << v[line/2] << endl;
+
   //최빈값 출력
   vector<pair <int,int> > cnt;
   for(int i=0; i<v.size(); i++){
@@ -43,8 +45,7 @@ int main () {
       continue;
     }
     if(cnt.back().first==v[i]){
-      pair<int,int> st;
-      st = cnt.back();
+      pair<int,int> st = cnt.back();
       st.second++;
       cnt.pop_back();
       cnt.push_back(st);
