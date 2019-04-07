@@ -1,36 +1,40 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <vector>
 
 using namespace std;
-
+bool compare (string& first, string& second) {
+	return first.size() < second.size();
+}
 int main () {
+	vector <string> words;
+	vector <string>::iterator stash;
 	int N, i, j = 0;
+	string word = "";
 	cout << "how many words? ";
 	cin >> N;
 	
-	string words[N];
-	string finals[N];
+	/* push data to vector */
 	for(i = 0; i < N; i++) {
 		cout << "enter the word : ";
-		cin >> 	words[i];
+		cin >> word;
+		words.push_back(word);
 	}
 
-	/* sort string array */
-	sort(words, words+N);
 
-	/* remove duplicated ones */
-	for(i = 0; i < N; i++) {
-		if (words[i] != words[i+1]) {
-			finals[j] = words[i];
-			j++;
-		}
-		else continue;
-	}
+	/* sort */
+	sort(words.begin(), words.end());
+
+	/* remove duplicates */
+	words.erase(unique(words.begin(), words.end()), words.end());
+
+	/* sort by length */
+	sort(words.begin(), words.end(), compare);
 
 	/* print */
-	for(i = 0; i < N; i++) {
-		cout << finals[i] << endl;
+	for(i = 0; i < words.size(); i++) {
+		cout << words[i] << endl;
 	}
 
 	return 0;
